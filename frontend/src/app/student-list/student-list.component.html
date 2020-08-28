@@ -1,0 +1,59 @@
+<h1>Student Application</h1>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>
+          <input placeholder="Search" type="text" [(ngModel)]="name" (keyup.enter)="searchStudent(name)"/>
+        </th>
+        <th>
+          <select (change)="selectChangeHandler($event)">
+            <option value="" disabled selected>Filter By</option>
+            <option value="class">Class</option>
+            <option value="subject">Subject</option>
+          </select>
+        </th>
+        <th></th>
+        <th></th>
+        <th><a class="btn btn-primary" routerLink="/add-student">+ Add Student</a></th>
+      </tr>
+    </thead>
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Class</th>
+          <th>Subject Details</th>
+        </tr>
+      </thead>
+    <tbody *ngFor="let student of allStudents; let i = index">
+      <tr>
+        <td>{{i+1}}</td>
+        <td>{{student.first_name}}</td>
+        <td>{{student.last_name}}</td>
+        <td>{{student.class}}th</td>
+        <td>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let subject of student.subjectsData">
+                <td>{{subject.subject}}</td>
+                <td>{{subject.marks}}</td>
+                <td>
+                  <button class="btn btn-success btn-sm" (click)="editStudent(student, subject)">Edit</button>&nbsp;&nbsp;
+                  <button class="btn btn-error btn-sm" (click)="deleteStudent(student._id, subject._id)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>

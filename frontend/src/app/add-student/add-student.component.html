@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2>Add Student</h2>
+            
+            <form [formGroup]="addStudentForm" (submit)="onSubmit()">
+
+                <div>
+                    <label>First Name</label>
+                    <input class="input-box" placeholder="First Name" type="text" formControlName="first_name" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                    <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                        <div *ngIf="f.first_name.errors.required">First Name is required</div>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Last Name</label>
+                    <input class="input-box" placeholder="Last Name" type="text" formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                    <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                        <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Class</label>
+                    <select formControlName="class" [ngClass]="{ 'is-invalid': submitted && f.class.errors }">
+                        <option value="" disabled selected>Select Class</option>
+                        <option value="1">1st</option>
+                        <option value="2">2nd</option>
+                        <option value="3">3rd</option>
+                        <option value="4">4th</option>
+                        <option value="5">5th</option>
+                        <option value="6">6th</option>
+                        <option value="7">7th</option>
+                        <option value="8">8th</option>
+                        <option value="9">9th</option>
+                        <option value="10">10th</option>
+                        <option value="11">11th</option>
+                        <option value="12">12th</option>
+                    </select>
+                    <div *ngIf="submitted && f.class.errors" class="invalid-feedback">
+                        <div *ngIf="f.class.errors.required">Class is required</div>
+                    </div>
+                </div>
+                <div>
+                    <label>Add Subjects</label>
+                    <button (click)="addSubject()">Add</button>
+                    <div formArrayName="subjectDetails" *ngFor="let item of addStudentForm.get('subjectDetails')['controls']; let i = index;">
+                        <div [formGroupName]="i">
+                            <input type="text" formControlName="subject" placeholder="Subject">
+                            <input type="number" formControlName="marks" placeholder="Marks">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary form-submit">
+                    <span>Save</span>
+                </button>
+                <a routerLink="/student-list" class="btn btn-warning">
+                    <span>Cancel</span>
+                </a>
+                
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
